@@ -1,41 +1,60 @@
 <?php
 session_start();
 require_once '../controllers/admin/CategoryAdminController.php';
+require_once '../controllers/admin/ProductAdminController.php';
+
 $action  = isset($_GET['act']) ? $_GET['act'] : 'index';
 $categoryAdmin = new CategoryAdminController();
+$productAdmin = new ProductAdminController();
 
 switch ($action) {
     case 'admin':
         include '../views/admin/index.php';
         break;
     case 'product';
-        include '../views/admin/product/list.php';
+        $productAdmin->index();
         break;
     case 'product-create';
-        include '../views/admin/category/create.php';
+        $productAdmin->create();
+        break;
+    case 'product-store';
+        $productAdmin->store();
         break;
     case 'product-edit';
-        include '../views/admin/category/edit.php';
+        $productAdmin->edit();
+        break;
+    case 'product-update';
+        $productAdmin->update();
+        break;
+        case 'gallery-delete';
+        $productAdmin->deleteGallery();
+        break;
+        case 'product-variant-delete';
+        $productAdmin->deleteProductVariant();
+        break;
+        case 'product-delete';
+        $productAdmin->deleteProduct();
         break;
     case 'category';
-    $categoryAdmin->index();
-            break;
+        $categoryAdmin->index();
+        break;
 
     case 'category-create';
-    $categoryAdmin->addCategory();
+        $categoryAdmin->addCategory();
         break;
     case 'category-edit';
-    $categoryAdmin->updateCategory();
+        $categoryAdmin->updateCategory();
         break;
+
     //=======================================================================
 
     case 'index';
         include '../views/client/index.php';
         break;
-        case 'login';
+    case 'login';
         include '../views/client/auth/login.php';
         break;
-        case 'register';
+    case 'register';
         include '../views/client/auth/register.php';
         break;
 }

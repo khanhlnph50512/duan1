@@ -18,11 +18,11 @@ class Category extends connect
     }
     public function update($id, $name, $images, $status, $description)
     {
-        $sql = 'update categores set name=?,images=?,status=?,description=? where category_id=?';
+        $sql = 'update categores set name=?,image=?,status=?,description=? where category_id=?';
         $stmt = $this->connect()->prepare($sql);
         return $stmt->execute([$name, $images, $status, $description, $id]);
     }
-
+    
     public function detail()
     {
         $sql = 'select * from categores where category_id=?';
