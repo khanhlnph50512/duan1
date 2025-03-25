@@ -1,4 +1,4 @@
-<?php include 'layout/header.php' ?>
+<?php include '../views/admin/layout/header.php' ?>
 <div class="page-content">
 
 <!-- Start Container Fluid -->
@@ -375,7 +375,7 @@
                                         </td>
                                         <td>29 April 2024</td>
                                         <td>
-                                             <img src="assets_admin/images/products/product-1(1).png" alt="product-1(1)" class="img-fluid avatar-sm">
+                                             <img src="admin/assets_admin/images/products/product-1(1).png" alt="product-1(1)" class="img-fluid avatar-sm">
                                         </td>
                                         <td>
                                              <a href="#!">Anna M. Hines</a>
@@ -394,7 +394,7 @@
                                         </td>
                                         <td>25 April 2024</td>
                                         <td>
-                                             <img src="assets_admin/images/products/product-4.png" alt="product-4" class="img-fluid avatar-sm">
+                                             <img src="admin/assets_admin/images/products/product-4.png" alt="product-4" class="img-fluid avatar-sm">
                                         </td>
                                         <td>
                                              <a href="#!">Judith H. Fritsche</a>
@@ -413,7 +413,7 @@
                                         </td>
                                         <td>25 April 2024</td>
                                         <td>
-                                             <img src="assets_admin/images/products/product-5.png" alt="product-5" class="img-fluid avatar-sm">
+                                             <img src="admin/assets_admin/images/products/product-5.png" alt="product-5" class="img-fluid avatar-sm">
                                         </td>
                                         <td>
                                              <a href="#!">Peter T. Smith</a>
@@ -432,7 +432,7 @@
                                         </td>
                                         <td>21 April 2024</td>
                                         <td>
-                                             <img src="assets_admin/images/products/product-6.png" alt="product-6" class="img-fluid avatar-sm">
+                                             <img src="admin/assets_admin/images/products/product-6.png" alt="product-6" class="img-fluid avatar-sm">
                                         </td>
                                         <td>
                                              <a href="#!">Emmanuel J. Delcid</a>
@@ -453,7 +453,7 @@
                                         </td>
                                         <td>18 April 2024</td>
                                         <td>
-                                             <img src="assets_admin/images/products/product-1(2).png" alt="product-1(2)" class="img-fluid avatar-sm">
+                                             <img src="admin/assets_admin/images/products/product-1(2).png" alt="product-1(2)" class="img-fluid avatar-sm">
                                         </td>
                                         <td>
                                              <a href="#!">William J. Cook</a>
@@ -529,4 +529,4 @@
 <!-- ========== Footer End ========== -->
 
 </div>
-<?php include 'layout/footer.php' ?>
+<?php include '../views/admin/layout/footer.php' ?>
