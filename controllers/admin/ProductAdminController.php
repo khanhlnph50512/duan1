@@ -316,4 +316,43 @@ class ProductAdminController extends Product
             exit();
         }
     }
+    public function detail()
+    {
+        $slug = $_GET['slug'] ?? '';
+        if (empty($slug)) {
+            $_SESSION['error'] = 'Không tìm thấy sản phẩm';
+            header('Location: index.php?act=index');
+            exit();
+        }
+    
+        $product = $this->getProductBySlug($slug);
+        if ($product) {
+            include '../views/client/product-detail.php';
+        } else {
+            $_SESSION['error'] = 'Sản phẩm không tồn tại';
+            header('Location: index.php?act=index');
+            exit();
+        }
+    }
+
+    public function search()
+{
+    if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
+        $keyword = trim($_GET['keyword']);
+        $searchResults = $this->searchProducts($keyword);
+
+        if ($searchResults) {
+            // Hiển thị kết quả tìm kiếm
+            include '../views/client/search.php';
+        } else {
+            $_SESSION['error'] = 'Không tìm thấy sản phẩm nào phù hợp với từ khóa "' . htmlspecialchars($keyword) . '"';
+            include '../views/client/search.php';
+        }
+    } else {
+        $_SESSION['error'] = 'Vui lòng nhập từ khóa tìm kiếm';
+        header('Location: index.php');
+        exit();
+    }
 }
+}
+
