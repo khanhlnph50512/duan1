@@ -197,7 +197,6 @@ class Product extends connect
         variant_colors.color_code as variant_color_code,
         variant_sizes.size_name as variant_size_name,
         product_galleries.image as product_gallery_image
-
         from product
         left join product_variants on product.product_id = product_variants.product_id
         left join categores on product.category_id = categores.category_id
@@ -205,50 +204,76 @@ class Product extends connect
         left join variant_colors on product_variants.variant_color_id = variant_colors.variant_color_Id
         left join variant_sizes on product_variants.variant_size_id = variant_sizes.variant_size_Id
         where product.slug =?
-        
-        
         ';
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$slug]);
         $listProduct = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
+        // Kiểm tra nếu không tìm thấy sản phẩm
+        if (empty($listProduct)) {
+            return null; // Trả về null để controller xử lý
+        }
+    
         $groupedProducts = [];
-        foreach($listProduct as $product) 
+        foreach ($listProduct as $product) 
         {
-            if(isset($groupedProducts[$product['product_id']])){
+            // Khởi tạo nếu chưa tồn tại
+            if (!isset($groupedProducts[$product['product_id']])) {
                 $groupedProducts[$product['product_id']] = $product;
                 $groupedProducts[$product['product_id']]['variants'] = [];
                 $groupedProducts[$product['product_id']]['galleries'] = [];
             }
+    
             $exists = false;
-            foreach($groupedProducts[$product['product_id']]['variants'] as $variant){
-                if(
+            foreach ($groupedProducts[$product['product_id']]['variants'] as $variant) {
+                if (
                     $variant['variant_color_name'] == $product['variant_color_name'] &&
                     $variant['variant_size_name'] == $product['variant_size_name']
-
-                ){
+                ) {
                     $exists = true;
                     break;
                 }
             }
-            if (!$exists) {
+            if (!$exists && !empty($product['variant_color_name']) && !empty($product['variant_size_name'])) {
                 $groupedProducts[$product['product_id']]['variants'][] = [
-                   'product_variant_id'=>$product['product_variant_id'],
-                   'variant_color_name' => $product['variant_color_name'],
-                   'variant_color_code' => $product['variant_color_code'],
-                   'variant_size_name' =>$product['variant_size_name'],
-                   'product_variant_price'=> $product['variant_price'],
-                   'product_variant_sale_price'=> $product['variant_sale_price'],
-                    'product_variant_quantity'=> $product['variant_quantity'],
+                    'product_variant_id' => $product['product_variant_id'],
+                    'variant_color_name' => $product['variant_color_name'],
+                    'variant_color_code' => $product['variant_color_code'],
+                    'variant_size_name' => $product['variant_size_name'],
+                    'product_variant_price' => $product['variant_price'],
+                    'product_variant_sale_price' => $product['variant_sale_price'],
+                    'product_variant_quantity' => $product['variant_quantity'],
                 ];
             }
-            if(!empty($product['product_gallery_image'] && !in_array($product['product_gallery_image'],
-            $groupedProducts[$product['product_id']]['galleries']))){
-                $groupedProducts[$product['product_id']]['galleries'][] = $product['product_gallery_image']
-                
-                ;
+    
+            if (!empty($product['product_gallery_image']) && !in_array($product['product_gallery_image'], $groupedProducts[$product['product_id']]['galleries'])) {
+                $groupedProducts[$product['product_id']]['galleries'][] = $product['product_gallery_image'];
             }
         }
-        return $groupedProducts;
+    
+        // Trả về sản phẩm đầu tiên (vì slug là duy nhất, chỉ có 1 sản phẩm)
+        return reset($groupedProducts) ?: null;
     }
+    public function searchProducts($keyword)
+{
+    $sql = "
+        SELECT 
+            product.product_id as product_id,
+            product.name as product_name,
+            product.price as product_price,
+            product.sale_price as product_sale_price,
+            product.image as product_image,
+            product.slug as product_slug,
+            product.description as product_description,
+            categores.category_id as category_id,
+            categores.name as category_name
+        FROM product
+        LEFT JOIN categores ON product.category_id = categores.category_id
+        WHERE product.name LIKE :keyword
+        ORDER BY product.product_id DESC
+    ";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([':keyword' => "%$keyword%"]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

@@ -1,172 +1,174 @@
 <?php
-include 'layout/header.php';
+require_once 'layout/header.php';
 ?>
-<section class="section-product py-5">
-    <div class="container">
-        <!-- Breadcrumb Navigation -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="#">Áo thun</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Áo thun FIDE LABUBU</li>
-            </ol>
-        </nav>
 
-        <div class="row">
-            <!-- Product Image Gallery -->
-            <div class="col-12 col-lg-6">
-                <div class="box-img">
-                    <img class="w-100 main-product-image"
-                        src="https://product.hstatic.net/200000863757/product/z5594338311706_53123b2d888f84bf37ea7ce2c1371724_c360165a807e4baa8a89f5df76784e4c.jpg"
-                        alt="Áo Sơ Mi Nam Trắng Aristino">
+<section class="product-detail">
+    <div class="container ">
+        <div class="row mt-3">
 
-                    <!-- Thumbnail Gallery -->
-                    <div class="product-thumbnails mt-3 d-flex justify-content-start">
-                        <div class="thumbnail mr-2">
-                            <img src="https://product.hstatic.net/200000863757/product/z5594338311706_53123b2d888f84bf37ea7ce2c1371724_c360165a807e4baa8a89f5df76784e4c.jpg"
-                                alt="Thumbnail 1" class="img-thumbnail">
-                        </div>
-                        <div class="thumbnail mr-2">
-                            <img src="https://product.hstatic.net/200000863757/product/z5594338311706_53123b2d888f84bf37ea7ce2c1371724_c360165a807e4baa8a89f5df76784e4c.jpg"
-                                alt="Thumbnail 2" class="img-thumbnail">
-                        </div>
-                        <div class="thumbnail mr-2">
-                            <img src="https://product.hstatic.net/200000863757/product/z5594338311706_53123b2d888f84bf37ea7ce2c1371724_c360165a807e4baa8a89f5df76784e4c.jpg"
-                                alt="Thumbnail 3" class="img-thumbnail">
-                        </div>
+            <div class="col-12 col-md-6">
+                <div class="product-detail-gallery">
+                    <!-- Hình ảnh chính -->
+                    <div class="main-image">
+                        <img src="/duan/duan1/public/images/product/<?php echo htmlspecialchars($product['product_image']); ?>"
+                            alt="<?php echo htmlspecialchars($product['product_name']); ?>" id="main-image"
+                            class="img-fluid small-main-image">
+                    </div>
+                    <!-- Danh sách ảnh phụ -->
+                    <div class="thumbnails mt-3 d-flex gap-2 flex-wrap">
+                        <?php if (!empty($product['galleries'])): ?>
+                            <?php foreach ($product['galleries'] as $gallery): ?>
+                                <img src="/duan/duan1/public/images/product/<?php echo htmlspecialchars($gallery); ?>"
+                                    alt="Gallery Image" onclick="changeMainImage(this.src)"
+                                    class="img-thumbnail small-thumbnail" style="cursor: pointer;">
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
 
-            <!-- Product Information -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-md-6">
+            <div id="cart-message" class="alert" style="display: none;"></div>
+                <!-- Thông tin sản phẩm -->
                 <div class="product-info">
-                    <h1 class="title-product mb-3">Áo thun FIDE LABUBU phông unisex form rộng</h1>
+                    <h1 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h1>
+                    <div class="product-category mb-2">
+                        <span>Danh mục: </span>
+                        <a href="#" <?php echo htmlspecialchars($product['category_id']); ?>">
+                            <?php echo htmlspecialchars($product['category_name'] ?? 'Chưa có danh mục'); ?>
+                        </a>
+                    </div>
+                    <div class="product-price-wrapper mb-3">
+                        <?php if ($product['product_sale_price'] < $product['product_price']): ?>
+                            <span
+                                class="product-price old-price text-muted text-decoration-line-through"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>
+                                VNĐ</span>
+                            <span
+                                class="product-price new-price text-danger"><?php echo number_format($product['product_sale_price'], 0, ',', '.'); ?>
+                                VNĐ</span>
+                        <?php else: ?>
+                            <span class="product-price"><?php echo number_format($product['product_price'], 0, ',', '.'); ?>
+                                VNĐ</span>
+                        <?php endif; ?>
+                    </div>
 
-                    <!-- Product Rating -->
-                    <div class="product-rating mb-3">
-                        <div class="stars text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                    <form action="?act=add-to-cart" method="POST">
+                        <div class="product-variants mb-4">
+                            <!-- Chọn màu sắc -->
+                            <div class="color-options mb-3">
+                                <h4>Chọn màu:</h4>
+                                <?php
+                                $uniqueColors = [];
+                                if (!empty($product['variants'])) {
+                                    foreach ($product['variants'] as $variant) {
+                                        if (!in_array($variant['variant_color_name'], $uniqueColors)) {
+                                            $uniqueColors[] = $variant['variant_color_name'];
+                                            ?>
+                                            <label class="d-inline-block me-2">
+                                                <input type="radio" name="variant_color"
+                                                    value="<?php echo htmlspecialchars($variant['variant_color_name']); ?>"
+                                                    required>
+                                                <span class="color-circle"
+                                                    style="background-color: <?php echo htmlspecialchars($variant['variant_color_code']); ?>;"></span>
+                                                <span
+                                                    class="ms-1"><?php echo htmlspecialchars($variant['variant_color_name']); ?></span>
+                                            </label>
+                                            <?php
+                                        }
+                                    }
+                                } else {
+                                    echo '<p>Không có màu sắc nào để chọn.</p>';
+                                }
+                                ?>
+                            </div>
+
+
+                            <div class="size-options mb-3">
+                                <h4>Chọn kích thước:</h4>
+                                <?php
+                                $uniqueSizes = [];
+                                if (!empty($product['variants'])) {
+                                    foreach ($product['variants'] as $variant) {
+                                        if (!in_array($variant['variant_size_name'], $uniqueSizes)) {
+                                            $uniqueSizes[] = $variant['variant_size_name'];
+                                            ?>
+                                            <label class="d-inline-block me-2">
+                                                <input type="radio" name="variant_size"
+                                                    value="<?php echo htmlspecialchars($variant['variant_size_name']); ?>" required>
+                                                <span
+                                                    class="border p-2"><?php echo htmlspecialchars($variant['variant_size_name']); ?></span>
+                                            </label>
+                                            <?php
+                                        }
+                                    }
+                                } else {
+                                    echo '<p>Không có kích thước nào để chọn.</p>';
+                                }
+                                ?>
+                            </div>
                         </div>
-                        <span class="rating-text ml-2">(4.5/5) · 256 đánh giá</span>
-                    </div>
 
-                    <!-- Product Price -->
-                    <div class="product-price mb-3">
-                        <span class="current-price text-danger font-weight-bold">169,000đ</span>
-                        <span class="original-price text-muted ml-2 text-decoration-line-through">199,000đ</span>
-                    </div>
-
-                    <!-- Color Selection -->
-                    <div class="color-selection mb-3">
-                        <label class="d-block mb-2">Màu sắc</label>
-                        <div class="color-options d-flex">
-                            <div class="color-item mr-2 border rounded-circle"
-                                style="background-color: white; width: 30px; height: 30px;"></div>
-                            <div class="color-item mr-2 border rounded-circle"
-                                style="background-color: gray; width: 30px; height: 30px;"></div>
+                        <!-- Số lượng -->
+                        <div class="quantity-input mb-4 d-flex align-items-center">
+                            <h4 class="me-3">Số lượng:</h4>
+                            <div class="input-group" style="width: 150px;">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    onclick="updateQuantity(-1)">-</button>
+                                <input type="number" name="quantity" id="quantity" value="1" min="1"
+                                    max="<?php echo htmlspecialchars($product['variants'][0]['product_variant_quantity'] ?? 10); ?>"
+                                    class="form-control text-center">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    onclick="updateQuantity(1)">+</button>
+                            </div>
+                            <span class="ms-3">(Còn lại:
+                                <?php echo htmlspecialchars($product['variants'][0]['product_variant_quantity'] ?? 10); ?>
+                                sản phẩm)</span>
                         </div>
-                    </div>
 
-                    <!-- Size Selection -->
-                    <div class="size-selection mb-3">
-                        <label class="d-block mb-2">Chọn size</label>
-                        <div class="size-options">
-                            <input type="radio" class="btn-check" name="size" id="sizeS" autocomplete="off">
-                            <label class="btn btn-outline-secondary mr-2" for="sizeS">S</label>
-
-                            <input type="radio" class="btn-check" name="size" id="sizeM" autocomplete="off" checked>
-                            <label class="btn btn-outline-secondary mr-2" for="sizeM">M</label>
-
-                            <input type="radio" class="btn-check" name="size" id="sizeL" autocomplete="off">
-                            <label class="btn btn-outline-secondary mr-2" for="sizeL">L</label>
-
-                            <input type="radio" class="btn-check" name="size" id="sizeXL" autocomplete="off">
-                            <label class="btn btn-outline-secondary mr-2" for="sizeXL">XL</label>
-
-                            <input type="radio" class="btn-check" name="size" id="sizeXXL" autocomplete="off">
-                            <label class="btn btn-outline-secondary" for="sizeXXL">XXL</label>
-                        </div>
-                    </div>
-
-
-                    <!-- Quantity and Add to Cart -->
-                    <div class="purchase-actions mb-3">
-                        <div class="quantity-control d-flex align-items-center mr-3" style="max-width: 120px;">
-                            <button class="btn btn-outline-secondary btn-sm minus-btn"
-                                style="padding: 2px 6px; height: 30px;">-</button>
-                            <input type="number" class="form-control form-control-sm text-center mx-2" value="1" min="1"
-                                max="10" style="width: 50px; padding: 2px; height: 30px;">
-                            <button class="btn btn-outline-secondary btn-sm plus-btn"
-                                style="padding: 2px 6px; height: 30px;">+</button>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-lg mt-3">
-                        <i class="fas fa-shopping-cart mr-2"></i>Thêm vào giỏ hàng
-                    </button>
+                        <!-- Nút thêm vào giỏ hàng -->
+                        <form action="?act=add-to-cart" method="POST">
+                            <input type="hidden" name="product_id"
+                                value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                            <button type="submit" class="btn btn-primary btn-lg">Thêm vào giỏ hàng</button>
+                        </form>
                 </div>
+                                
 
-                <!-- Shipping and Return Info -->
-                <div class="shipping-info text-muted small mt-3">
-                    <p>Thời gian giao hàng: Từ 3 đến 5 ngày kể từ ngày đặt</p>
-                    <p>Đổi hàng trong 30 ngày với sản phẩm còn nguyên tem, nhãn</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Description and Details -->
-        <div class="col-12 mt-5">
-            <ul class="nav nav-tabs" id="productTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                        data-bs-target="#description" type="button" role="tab">Mô tả sản phẩm</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="comment-tab" data-bs-toggle="tab" data-bs-target="#comment"
-                        type="button" role="tab">Đánh giá</button>
-                </li>
-            </ul>
-            <div class="tab-content mt-3" id="productTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel">
-                    <p>Áo thun FIDE LABUBU phông unisex form rộng local brand nam nữ cổ tròn oversize - AT79</p>
-                    <p>Chất liệu: Cotton 2 chiều</p>
-                    <p>️Bo cổ : 3 phân không bị giãn hay nhão sau khi giặt</p>
-                    <p>️Thiết kế nhiều phong cách đa dạng khác nhau : streetwear , dễ thương, cá tính , mạnh mẽ, ngầu ,
-                        năng đông, hiện thời , thiết mới luôn theo xu hướng trend</p>
-                    <p>️ Áo có 5 SIZE : S M L XL XXL</p>
-                </div>
-                <div class="tab-pane fade" id="comment" role="tabpanel">
-                    <h5>Đánh giá sản phẩm</h5>
-                    <form id="reviewForm">
-                        <div class="form-group">
-                            <label for="username">Tên của bạn</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="rating">Chọn số sao</label>
-                            <select class="form-control" id="rating" name="rating">
-                                <option value="5">⭐⭐⭐⭐⭐ (5 sao)</option>
-                                <option value="4">⭐⭐⭐⭐ (4 sao)</option>
-                                <option value="3">⭐⭐⭐ (3 sao)</option>
-                                <option value="2">⭐⭐ (2 sao)</option>
-                                <option value="1">⭐ (1 sao)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Nội dung đánh giá</label>
-                            <textarea class="form-control" id="commentText" name="comment" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Gửi đánh giá</button>
-                    </form>
+                <div class="product-description mt-4">
+                    <h3>Mô tả</h3>
+                    <p><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
+<script>
+    // Thay đổi hình ảnh chính
+    function changeMainImage(src) {
+        document.getElementById('main-image').src = src;
+    }
+
+    // Điều chỉnh số lượng
+    function updateQuantity(change) {
+        const quantityInput = document.getElementById('quantity');
+        let quantity = parseInt(quantityInput.value);
+        const maxQuantity = parseInt(quantityInput.max);
+        const minQuantity = parseInt(quantityInput.min);
+
+        quantity += change;
+
+        if (quantity < minQuantity) {
+            quantity = minQuantity;
+        }
+        if (quantity > maxQuantity) {
+            quantity = maxQuantity;
+        }
+
+        quantityInput.value = quantity;
+    }
+</script>
+
 <?php
-include 'layout/footer.php';
+require_once 'layout/footer.php'; // Nhúng footer
 ?>

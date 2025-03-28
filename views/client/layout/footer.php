@@ -1,3 +1,4 @@
+
 <footer>
    <div class="tp-footer-area" data-bg-color="footer-bg-grey">
       <div class="tp-footer-top pt-95 pb-40">
@@ -8,7 +9,7 @@
                      <div class="tp-footer-widget-content">
                         <div class="tp-footer-logo">
                            <a href="index.html">
-                              <img src="assets/img/logo/logo.svg" alt="logo">
+                              <img src="/duan/duan1/public/client/assets/img/logo/logo.svg" alt="logo">
                            </a>
                         </div>
                         <p class="tp-footer-desc">We are a team of designers and developers that create high quality
@@ -123,7 +124,7 @@
                   <div class="col-md-6">
                      <div class="tp-footer-payment text-md-end">
                         <p>
-                           <img src="assets/img/footer/footer-pay.png" alt="">
+                           <img src="/duan/duan1/public/client/assets/img/footer/footer-pay.png" alt="">
                         </p>
                      </div>
                   </div>
@@ -138,22 +139,24 @@
 
 
 <!-- JS here -->
-<script src="assets/js/vendor/jquery.js"></script>
-<script src="assets/js/vendor/waypoints.js"></script>
-<script src="assets/js/bootstrap-bundle.js"></script>
-<script src="assets/js/meanmenu.js"></script>
-<script src="assets/js/swiper-bundle.js"></script>
-<script src="assets/js/slick.js"></script>
-<script src="assets/js/range-slider.js"></script>
-<script src="assets/js/magnific-popup.js"></script>
-<script src="assets/js/nice-select.js"></script>
-<script src="assets/js/purecounter.js"></script>
-<script src="assets/js/countdown.js"></script>
-<script src="assets/js/wow.js"></script>
-<script src="assets/js/isotope-pkgd.js"></script>
-<script src="assets/js/imagesloaded-pkgd.js"></script>
-<script src="assets/js/ajax-form.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="/duan/duan1/public/client/assets/js/vendor/jquery.js"></script>
+<script src="/duan/duan1/public/client/assets/js/vendor/waypoints.js"></script>
+<script src="/duan/duan1/public/client/assets/js/bootstrap-bundle.js"></script>
+<script src="/duan/duan1/public/client/assets/js/meanmenu.js"></script>
+<script src="/duan/duan1/public/client/assets/js/swiper-bundle.js"></script>
+<script src="/duan/duan1/public/client/assets/js/slick.js"></script>
+<script src="/duan/duan1/public/client/assets/js/range-slider.js"></script>
+<script src="/duan/duan1/public/client/assets/js/magnific-popup.js"></script>
+<script src="/duan/duan1/public/client/assets/js/nice-select.js"></script>
+<script src="/duan/duan1/public/client/assets/js/purecounter.js"></script>
+<script src="/duan/duan1/public/client/assets/js/countdown.js"></script>
+<script src="/duan/duan1/public/client/assets/js/wow.js"></script>
+<script src="/duan/duan1/public/client/assets/js/isotope-pkgd.js"></script>
+<script src="/duan/duan1/public/client/assets/js/imagesloaded-pkgd.js"></script>
+<script src="/duan/duan1/public/client/assets/js/ajax-form.js"></script>
+<script src="/duan/duan1/public/client/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 

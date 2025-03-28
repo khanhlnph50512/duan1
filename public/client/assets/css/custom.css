@@ -1,0 +1,227 @@
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.quantity-input input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+.quantity-input button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.quantity-input button:hover {
+    background-color: #0056b3;
+}
+.product-price-wrapper .old-price {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+.product-price-wrapper .new-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.color-options label, .size-options label {
+    cursor: pointer;
+}
+.size-options span {
+    transition: all 0.3s;
+}
+.size-options input:checked + span {
+    background-color: #007bff;
+    color: white;
+}
+.quantity-input input {
+    width: 60px;
+}
+.product-detail-gallery .main-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+}
+.product-variants .color-options input[type="radio"],
+.product-variants .size-options input[type="radio"] {
+    display: none;
+}
+.product-variants .color-options input[type="radio"]:checked + .color-circle,
+.product-variants .size-options input[type="radio"]:checked + .border {
+    border: 2px solid #007bff;
+}
+.size-options span {
+    transition: all 0.3s;
+}
+.size-options input:checked + span {
+    background-color: #007bff;
+    color: white;
+}
+
+.small-product-image {
+    width: 100%;
+    max-width: 180px; /* Thu nhỏ ảnh sản phẩm */
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto; /* Căn giữa ảnh */
+ }
+
+ .tp-product-content {
+    padding: 10px; /* Giảm padding để khung nhỏ gọn hơn */
+ }
+
+ .tp-header-search {
+    padding-left: 70px; /* Giữ padding trái như thiết kế ban đầu */
+    max-width: 500px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa nếu cần */
+ }
+ 
+ /* Form tìm kiếm */
+ .search-bar .input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0; /* Viền nhẹ nhàng */
+    border-radius: 25px; /* Bo tròn các góc */
+    overflow: hidden; /* Đảm bảo các phần tử con không tràn ra ngoài */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ */
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà khi hover/focus */
+ }
+ 
+ /* Trường nhập liệu */
+ .search-bar .input-group .form-control {
+    border: none; /* Xóa viền mặc định của input */
+    padding: 10px 15px; /* Khoảng cách bên trong */
+    font-size: 14px; /* Kích thước chữ nhỏ gọn */
+    color: #333; /* Màu chữ tối */
+    background-color: transparent; /* Nền trong suốt để hợp với input-group */
+    flex: 1; /* Chiếm toàn bộ không gian còn lại */
+    outline: none; /* Xóa viền khi focus */
+    box-shadow: none; /* Xóa bóng mặc định của Bootstrap */
+ }
+ 
+ .search-bar .input-group .form-control::placeholder {
+    color: #999; /* Màu chữ placeholder nhạt */
+    font-style: italic; /* Chữ nghiêng cho placeholder */
+ }
+ 
+ /* Nút tìm kiếm */
+ .search-bar .input-group .btn {
+    border: none; /* Xóa viền nút */
+    background-color: #108EFF; /* Màu nền xanh (hợp với header bottom) */
+    color: #fff; /* Màu biểu tượng trắng */
+    padding: 10px 15px; /* Kích thước nút */
+    border-radius: 0 25px 25px 0; /* Bo tròn góc phải */
+    transition: background-color 0.3s ease; /* Hiệu ứng đổi màu khi hover */
+ }
+ 
+ .search-bar .input-group .btn:hover {
+    background-color: #0d6efd; /* Màu xanh đậm hơn khi hover */
+ }
+ 
+ /* Biểu tượng tìm kiếm */
+ .search-bar .input-group .btn i.bi-search {
+    font-size: 16px; /* Kích thước biểu tượng */
+ }
+ 
+ /* Hiệu ứng khi focus */
+ .search-bar .input-group:focus-within {
+    border-color: #108EFF; /* Viền xanh khi focus */
+    box-shadow: 0 0 8px rgba(16, 142, 255, 0.3); /* Đổ bóng xanh nhẹ */
+ }
+
+
+     /* Đảm bảo bố cục cột hoạt động đúng */
+     .row {
+         display: flex;
+         flex-wrap: wrap;
+         align-items: flex-start; /* Đảm bảo các cột bắt đầu từ đỉnh */
+     }
+ 
+     .col-md-6 {
+         flex: 0 0 auto;
+         width: 50%;
+     }
+ 
+     /* Giới hạn kích thước khung ảnh */
+     .product-detail-gallery {
+         text-align: center; /* Căn giữa toàn bộ gallery */
+         max-height: 500px; /* Giới hạn chiều cao tối đa của khung ảnh */
+         overflow: hidden; /* Ẩn phần dư thừa nếu ảnh quá cao */
+     }
+ 
+     /* Thu nhỏ và giới hạn ảnh chính */
+     .main-image {
+         max-height: 400px; /* Giới hạn chiều cao khung ảnh chính */
+         overflow: hidden;
+     }
+ 
+     .small-main-image {
+         max-width: 350px; /* Kích thước tối đa của ảnh chính */
+         max-height: 400px; /* Giới hạn chiều cao ảnh */
+         width: 100%;
+         height: auto;
+         object-fit: contain; /* Đảm bảo ảnh không bị méo */
+         display: block;
+         margin: 0 auto; /* Căn giữa ảnh */
+     }
+ 
+     /* Thu nhỏ ảnh phụ */
+     .small-thumbnail {
+         width: 50px !important; /* Thu nhỏ ảnh thumbnail */
+         height: 50px;
+         object-fit: cover;
+     }
+ 
+     /* Điều chỉnh tiêu đề sản phẩm */
+     .product-title {
+         font-size: 24px; /* Thu nhỏ tiêu đề */
+         margin-bottom: 10px;
+     }
+ 
+     /* Điều chỉnh phần thông tin */
+     .product-info {
+         padding: 0 15px; /* Khoảng cách bên trong */
+     }
+ 
+     /* Điều chỉnh phần mô tả */
+     .product-description {
+         padding: 0 15px; /* Đồng bộ với thông tin */
+     }
+ 
+     .product-description h3 {
+         font-size: 20px; /* Thu nhỏ tiêu đề mô tả */
+         margin-bottom: 10px;
+     }
+ 
+     .product-description p {
+         font-size: 14px; /* Thu nhỏ chữ mô tả */
+     }
+ 
+     /* Tùy chọn màu sắc */
+     .color-options .color-circle {
+         width: 18px; /* Thu nhỏ vòng tròn màu */
+         height: 18px;
+         border-radius: 50%;
+         display: inline-block;
+         vertical-align: middle;
+         border: 1px solid #ddd; /* Viền nhẹ cho vòng tròn */
+     }
+     .input-group {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+    .input-group .btn, .input-group .form-control {
+        flex-shrink: 0 !important;
+    }
+
