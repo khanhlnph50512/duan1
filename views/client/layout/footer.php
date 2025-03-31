@@ -1,4 +1,5 @@
-<footer>
+ <!-- footer area start -->
+ <footer>
          <div class="tp-footer-area" data-bg-color="footer-bg-grey">
             <div class="tp-footer-top pt-95 pb-40">
                <div class="container">

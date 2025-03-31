@@ -40,7 +40,7 @@ class CategoryAdminController extends Category
         if(move_uploaded_file($file['tmp_name'],'./images/category/'.$images)){
             $createCategory = $this->create($_POST['name'],$images,$_POST['status'],$_POST['description']);
             if($createCategory){
-                $_SESSION['success'] = 'Thêm thất bại,Vui lòng thứ lại';
+                $_SESSION['success'] = 'Thêm thành công';
                 header('Location:' . $_SERVER['HTTP_REFERER']);
                 exit();
             }

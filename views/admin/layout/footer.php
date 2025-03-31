@@ -1,4 +1,5 @@
-<script src="admin/assets_admin/js/vendor.js"></script>
+ <!-- Vendor Javascript (Require in all Page) -->
+     <script src="admin/assets_admin/js/vendor.js"></script>
 
      <!-- App Javascript (Require in all Page) -->
      <script src="admin/assets_admin/js/app.js"></script>
@@ -10,7 +11,7 @@
 
      <!-- Dashboard Js -->
      <script src="admin/assets_admin/js/pages/dashboard.js"></script>
-     <script>
+   <script>
     function ChangeToSlug()
 {
     var title, slug;

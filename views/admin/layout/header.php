@@ -26,10 +26,32 @@
 
      <!-- Theme Config js (Require in all Page) -->
      <script src="admin/assets_admin/js/config.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <!-- toast js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 </head>
 
 <body>
+       <?php
+       if(isset($_SESSION['error'])){
+          echo"<script type='text/javascript'>
+          toastr.warning('{$_SESSION['error']}');
+          </script>";
 
+          // xoa errorr tranh lap lai
+          unset($_SESSION['error']);
+       }
+
+       if(isset($_SESSION['success'])){
+          echo"<script type='text/javascript'>
+          toastr.success('{$_SESSION['success']}');
+          </script>";
+
+          // xoa errorr tranh lap lai
+          unset($_SESSION['success']);
+       }
+       ?>
      <!-- START Wrapper -->
      <div class="wrapper">
 
@@ -503,8 +525,8 @@
                                         </li>
                                         <!-- <li class="sub-nav-item">
                                              <a class="sub-nav-link" href="product-grid.html">Grid</a>
-                                        </li>
-                                        <li class="sub-nav-item">
+                                        </li> -->
+                                        <!-- <li class="sub-nav-item">
                                              <a class="sub-nav-link" href="product-details.html">Details</a>
                                         </li> -->
                                         <li class="sub-nav-item">
@@ -533,7 +555,7 @@
                                              <a class="sub-nav-link" href="index.php?act=category-edit">Edit</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="index.php?act=category-create">Create</a>
+                                             <a class="sub-nav-link" href="index.php?act=product-create">Create</a>
                                         </li>
                                    </ul>
                               </div>
@@ -570,17 +592,9 @@
                                    <ul class="nav sub-navbar-nav">
 
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="orders-list.html">List</a>
+                                             <a class="sub-nav-link" href="?act=order_status">List</a>
                                         </li>
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="order-detail.html">Details</a>
-                                        </li>
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="order-cart.html">Cart</a>
-                                        </li>
-                                        <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="order-checkout.html">Check Out</a>
-                                        </li>
+                                      
                                    </ul>
                               </div>
                          </li>
@@ -651,7 +665,7 @@
                               </div>
                          </li> -->
 
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                               <a class="nav-link" href="settings.html">
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:settings-bold-duotone"></iconify-icon>
@@ -660,7 +674,8 @@
                               </a>
                          </li>
 
-                         <!-- <li class="menu-title mt-2">Users</li>
+                         <li class="menu-title mt-2">Users</li>
+
                          <li class="nav-item">
                               <a class="nav-link" href="pages-profile.html">
                                    <span class="nav-icon">
@@ -670,29 +685,7 @@
                               </a>
                          </li>
 
-                         <li class="nav-item">
-                              <a class="nav-link menu-arrow" href="#sidebarRoles" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRoles">
-                                   <span class="nav-icon">
-                                        <iconify-icon icon="solar:user-speak-rounded-bold-duotone"></iconify-icon>
-                                   </span>
-                                   <span class="nav-text"> Roles </span>
-                              </a>
-                              <div class="collapse" id="sidebarRoles">
-                                   <ul class="nav sub-navbar-nav">
-                                        <ul class="nav sub-navbar-nav">
-                                             <li class="sub-nav-item">
-                                                  <a class="sub-nav-link" href="role-list.html">List</a>
-                                             </li>
-                                             <li class="sub-nav-item">
-                                                  <a class="sub-nav-link" href="role-edit.html">Edit</a>
-                                             </li>
-                                             <li class="sub-nav-item">
-                                                  <a class="sub-nav-link" href="role-add.html">Create</a>
-                                             </li>
-                                        </ul>
-                                   </ul>
-                              </div>
-                         </li>
+                         
 
                          <li class="nav-item">
                               <a class="nav-link" href="pages-permissions.html">
@@ -748,7 +741,26 @@
                               </div>
                          </li>
 
-                         <li class="menu-title mt-2">Other</li>
+                         <li class="menu-title mt-2">Other</li> -->
+                         <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#sidebarRoles" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarRoles">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:user-speak-rounded-bold-duotone"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Roles </span>
+                              </a>
+                              <div class="collapse" id="sidebarRoles">
+                                   <ul class="nav sub-navbar-nav">
+                                        <ul class="nav sub-navbar-nav">
+                                             <li class="sub-nav-item">
+                                                  <a class="sub-nav-link" href="index.php?act=role-list">List</a>
+                                             </li>
+                                            
+                                             
+                                        </ul>
+                                   </ul>
+                              </div>
+                         </li>
 
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCoupons">
@@ -760,16 +772,16 @@
                               <div class="collapse" id="sidebarCoupons">
                                    <ul class="nav sub-navbar-nav">
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="coupons-list.html">List</a>
+                                             <a class="sub-nav-link" href="index.php?act=coupon-list">List</a>
                                         </li>
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="coupons-add.html">Add</a>
+                                             <a class="sub-nav-link" href="index.php?act=coupon-create">Add</a>
                                         </li>
                                    </ul>
                               </div>
                          </li>
 
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                               <a class="nav-link" href="pages-review.html">
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>

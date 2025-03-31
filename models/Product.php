@@ -208,25 +208,29 @@ class Product extends connect
         
         
         ';
+
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$slug]);
         $listProduct = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
         $groupedProducts = [];
-        foreach($listProduct as $product) 
-        {
-            if(isset($groupedProducts[$product['product_id']])){
+        // loc qua tung san pham trong danh sach listproduct
+        foreach ($listProduct as $product) {
+            // neu san pham chua ton tai trong mang -> moi them vao
+            if (!isset($groupedProducts[$product['product_id']])) {
                 $groupedProducts[$product['product_id']] = $product;
                 $groupedProducts[$product['product_id']]['variants'] = [];
                 $groupedProducts[$product['product_id']]['galleries'] = [];
+
             }
+            // kiem tra bien the da co trong mang variants chua
             $exists = false;
-            foreach($groupedProducts[$product['product_id']]['variants'] as $variant){
-                if(
+            foreach ($groupedProducts[$product['product_id']]['variants'] as $variant) {
+                if (
                     $variant['variant_color_name'] == $product['variant_color_name'] &&
                     $variant['variant_size_name'] == $product['variant_size_name']
-
-                ){
+                ) {
                     $exists = true;
                     break;
                 }
@@ -249,6 +253,15 @@ class Product extends connect
                 ;
             }
         }
+
         return $groupedProducts;
+    }
+    public function searchProductsByName($keyword)
+    {
+        $sql = 'select * from product where name like :keyword';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindValue(':keyword','%'.$keyword. '%',PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
