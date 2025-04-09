@@ -63,4 +63,10 @@ class Cart extends connect {
         // Trả về số lượng tồn kho, nếu không tìm thấy thì trả về 0
         return $result ? (int)$result['quantity'] : 0;
     }
+    public function getCouponByCode($coupon_code){
+        $sql = 'select * from coupons where coupon_code = ?';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$coupon_code]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

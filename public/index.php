@@ -2,21 +2,26 @@
 session_start();
 require_once '../controllers/admin/CategoryAdminController.php';
 require_once '../controllers/admin/ProductAdminController.php';
+require_once '../controllers/admin/CouponAdminController.php';
+require_once '../controllers/admin/OrderAdminController.php';
 /////////////////////////
 require_once '../controllers/client/HomeController.php';
 require_once '../controllers/client/AuthController.php';
 require_once '../controllers/client/ProfileController.php';
 require_once '../controllers/client/CartController.php';
-
+require_once '../controllers/client/OrderController.php';
 
 $action  = isset($_GET['act']) ? $_GET['act'] : 'index';
 $categoryAdmin = new CategoryAdminController();
 $productAdmin = new ProductAdminController();
+$couponAdmin = new CouponAdminController();
+$orderAdmin = new OrderAdminController();
 ///////////////////////////
 $home = new HomeController();
 $auth = new AuthController();
 $profile = new ProfileController();
 $cart  = new CartController();
+$order = new OrderController();
 switch ($action) {
     case 'admin':
         include '../views/admin/index.php';
@@ -52,22 +57,49 @@ switch ($action) {
     case 'category-create';
         $categoryAdmin->addCategory();
         break;
-    case 'category-edit';
+    case 'category-edit':
         $categoryAdmin->updateCategory();
+        break;
+    case 'coupon-list':
+        $couponAdmin->index();
+        break;
+    case 'coupon-create':
+        $couponAdmin->create();
+        break;
+    case 'coupon-edit':
+        $couponAdmin->edit();
+        break;
+    case 'coupon-update':
+        $couponAdmin->update();
+        break;
+    case 'coupon-delete':
+        $couponAdmin->delete();
+        break;
+    case 'order_status':
+        $orderAdmin->index();
+        break;
+    case 'order-edit':
+        $orderAdmin->edit();
+        break;
+    case 'order-update':
+        $orderAdmin->update();
+        break;
+    case 'order-delete':
+        $orderAdmin->delete();
         break;
 
     //=======================================================================
 
-    case 'index';
+    case 'index':
         $home->index();
         break;
-    case 'register';
+    case 'register':
         $auth->registers();
         break;
-    case 'login';
+    case 'login':
         $auth->signin();
         break;
-    case 'logout';
+    case 'logout':
         $auth->logout();
         break;
     case 'profile':
@@ -76,19 +108,25 @@ switch ($action) {
     case 'update-profile':
         $profile->updateProfile();
         break;
-    case 'product_detail';
+    case 'product_detail':
         $home->productDetail();
         break;
-        case 'cart';
+    case 'cart':
         $cart->index();
         break;
-        case 'update-cart';
+    case 'update-cart':
         $cart->update();
         break;
-        case 'delete-cart';
+    case 'delete-cart':
         $cart->delete();
         break;
-        case 'addToCart-buyNow';
+    case 'addToCart-buyNow':
         $cart->addToCartOrByNow();
+        break;
+    case 'checkout':
+        $order->index();
+        break;
+    case 'order':
+        $order->checkout();
         break;
 }
