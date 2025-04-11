@@ -123,6 +123,9 @@ switch ($action) {
     case 'addToCart-buyNow':
         $cart->addToCartOrByNow();
         break;
+    case 'remove_coupon':
+        $cart->removeCoupon();
+        break;
     case 'checkout':
         $order->index();
         break;
@@ -137,6 +140,6 @@ switch ($action) {
         $order->cancel();
         break;
     case 'order-detail':
-        $order->orderDetail(); 
+        $order->orderDetail();
         break;
 }

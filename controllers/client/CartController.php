@@ -158,4 +158,17 @@ class CartController extends Cart {
         return $totalCoupon;
       
     }
+    public function removeCoupon() {
+        if (isset($_SESSION['coupon'])) {
+            unset($_SESSION['coupon']);
+        }
+    
+        if (isset($_SESSION['totalCoupon'])) {
+            unset($_SESSION['totalCoupon']);
+        }
+    
+        $_SESSION['success'] = 'Đã xóa mã giảm giá.';
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
