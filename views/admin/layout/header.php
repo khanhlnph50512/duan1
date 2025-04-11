@@ -530,9 +530,6 @@
                                              <a class="sub-nav-link" href="product-details.html">Details</a>
                                         </li> -->
                                         <li class="sub-nav-item">
-                                             <a class="sub-nav-link" href="index.php?act=product-edit">Edit</a>
-                                        </li>
-                                        <li class="sub-nav-item">
                                              <a class="sub-nav-link" href="index.php?act=product-create">Create</a>
                                         </li>
                                    </ul>

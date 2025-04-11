@@ -23,7 +23,6 @@
                                                                  <th>Order ID</th>
                                                                  <th>Created at</th>
                                                                  <th>Customer</th>
-                                                                 <th>Total</th>
                                                                  <th>Payment Status</th>
                                                                  <th>Order Status</th>
                                                                  <th>Action</th>
@@ -48,7 +47,6 @@
                                                                  <td>
                                                                       <div class="d-flex gap-2">
                                                                            <a href="?act=order-edit&order_detail_Id=<?=$order['order_detail_Id']?>" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                           <a  onclick="return confirm('Bạn chắc chắn muốn xóa')" href="?act=order-delete&order_detail_Id=<?=$order['order_detail_Id']?>" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
 
                                                                       </div>
                                                                  </td>

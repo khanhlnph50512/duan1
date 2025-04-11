@@ -60,7 +60,7 @@ class AuthController extends User
     if($login){
         $_SESSION['user'] = $login; //luu thong tin nguoi dung dang nhap vao ss
         $_SESSION['success'] = 'Đăng nhập thành công';
-        header('Location:http://localhost/DU_AN_1/public/');
+        header('Location:?act=index');
         exit();
     }else{
         $_SESSION['errors'] = 'Đăng nhập thất bại.Vui lòng xem lại';

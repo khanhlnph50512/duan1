@@ -2,7 +2,6 @@
 <main>
 
 
-
 <!-- product category area start -->
 
 <section class="tp-product-category pt-60 pb-15">

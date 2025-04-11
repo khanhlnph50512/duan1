@@ -129,4 +129,14 @@ switch ($action) {
     case 'order':
         $order->checkout();
         break;
+    case 'my-orders':
+        $order->myOrders();
+        break;
+
+    case 'order-cancel':
+        $order->cancel();
+        break;
+    case 'order-detail':
+        $order->orderDetail(); 
+        break;
 }

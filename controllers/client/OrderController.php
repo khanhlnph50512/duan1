@@ -57,4 +57,44 @@ class OrderController {
             }
         }
     }
+    public function myOrders() {
+        $user_id = $_SESSION['user']['user_id'];
+        $orders = $this->order->getOrdersByUser($user_id);
+    
+        include '../views/client/order/my_orders.php';
+    }
+    
+    public function cancel()
+{
+    $result = $this->order->cancelOrder('Canceled');
+
+    if ($result) {
+        $_SESSION['success'] = "Hủy đơn hàng thành công!";
+    } else {
+        $_SESSION['error'] = "Không thể hủy đơn hàng này.";
+    }
+
+    header('Location: ?act=my-orders');
+    exit();
+}
+public function orderDetail()
+{
+    $order_detail_id = $_GET['order_detail_Id'] ?? null;
+
+    if (!$order_detail_id) {
+        echo "Không tìm thấy ID đơn hàng";
+        return;
+    }
+
+    $orderDetail = $this->order->getOrderDetailById($order_detail_id);
+    $orderItems = $this->order->getOrderItems($order_detail_id); 
+
+    if (!$orderDetail) {
+        echo "Không tìm thấy đơn hàng";
+        return;
+    }
+
+    include '../views/client/order/order-detail.php';
+}
+
 }

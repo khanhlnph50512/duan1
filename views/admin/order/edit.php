@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="card-footer border-top">
-                            <button  type="submit" name="order-update" class="btn btn-primary">Cập nhật mã giảm giá</button>
+                            <button  type="submit" name="order-update" class="btn btn-primary">Cập nhật trạng thái </button>
                         </div>
                                 
             </form>
