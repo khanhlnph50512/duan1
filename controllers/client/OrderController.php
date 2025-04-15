@@ -26,7 +26,7 @@ class OrderController {
     public function checkout(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['checkout'])){
             $carts = $this->cart->getAllCart();
-
+            $coupon_id = !empty($_POST['coupon_id']) ? $_POST['coupon_id'] : null;
             $orderDetail = $this->order->addOrderDetail(
                  $_POST['name'],
                  $_POST['email'],
@@ -34,7 +34,7 @@ class OrderController {
                  $_POST['address'],
                  $_POST['amount'],
                  $_POST['note'],
-                 $_POST['coupon_id'],
+                 $coupon_id,
                  $_POST['shipping_id'],
                 $_POST['payment_method']
             );

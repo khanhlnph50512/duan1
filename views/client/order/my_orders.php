@@ -27,7 +27,7 @@
                             <td><?= htmlspecialchars($order['name']) ?></td>
                             <td><?= htmlspecialchars($order['phone']) ?></td>
                             <td><?= htmlspecialchars($order['address']) ?></td>
-                            <td><?= number_format($order['amount']) ?>đ</td>
+                            <td><?= number_format(($order['amount'] * 1000), 0, ',', '.') ?>vnd</td>
                             <td><?= ucfirst($order['payment_method']) ?></td>
                             <td>
                                 <?php
@@ -53,7 +53,7 @@
                             </td>
                             <td><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
                             <td>
-                            <a href="?act=order-detail&order_detail_Id=<?= $order['order_detail_Id'] ?>">Xem chi tiết</a>
+                                <a href="?act=order-detail&order_detail_Id=<?= $order['order_detail_Id'] ?>">Xem chi tiết</a>
 
                                 <?php if (strtolower($order['status']) === 'pending'): ?>
                                     <a href="?act=order-cancel&order_detail_Id=<?= $order['order_detail_Id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn hủy đơn hàng này?')">
@@ -71,5 +71,34 @@
         <div class="alert alert-info">Bạn chưa có đơn hàng nào.</div>
     <?php endif; ?>
 </div>
+<script>
+    // Function để kiểm tra trạng thái đơn hàng
+    function checkOrderStatus(orderDetailId) {
+        $.ajax({
+            url: '?act=order-detail&ajax=true&order_detail_Id=' + orderDetailId, // Gọi AJAX để kiểm tra trạng thái
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                console.log('Đã nhận được phản hồi: ', response); // Kiểm tra phản hồi
+                if (response.status) {
+                    // Nếu trạng thái đã thay đổi, tự động reload trang
+                    location.reload(); 
+                }
+            },
+            error: function() {
+                console.log('Lỗi khi gọi Ajax!');
+            }
+        });
+    }
+
+    // Kiểm tra trạng thái đơn hàng sau mỗi 5 giây (5000ms)
+    $(document).ready(function() {
+        const orderDetailId = <?= $_GET['order_detail_Id'] ?>; // Lấy order_detail_Id từ URL
+        setInterval(function() {
+            checkOrderStatus(orderDetailId); // Gọi hàm kiểm tra trạng thái
+        }, 5000); // Cứ mỗi 5 giây, kiểm tra trạng thái
+    });
+</script>
+
 
 <?php include '../views/client/layout/footer.php' ?>

@@ -46,4 +46,20 @@ class OrderAdminController extends Order{
         exit();
        }
  }
+ public function show() {
+    // Kiểm tra nếu có id đơn hàng được gửi đến
+    $order_detail_id = $_GET['order_detail_Id'] ?? null;
+
+    if (!$order_detail_id) {
+        $_SESSION['error'] = 'Không tìm thấy đơn hàng';
+        header("Location: ?act=order_status");
+        exit();
+    }
+
+    // Lấy thông tin chi tiết đơn hàng
+    $orderDetail = $this->getOrderDetailById($order_detail_id);
+    $orderItems = $this->getOrderItems($order_detail_id); // Lấy các sản phẩm trong đơn hàng
+
+    include '../views/admin/order/order_detail.php';  // Truyền dữ liệu vào view
+}
 }

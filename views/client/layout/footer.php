@@ -139,6 +139,14 @@
       <script src="client/assets/js/imagesloaded-pkgd.js"></script>
       <script src="client/assets/js/ajax-form.js"></script>
       <script src="client/assets/js/main.js"></script>
+      <script src="client/assets/js/reloadOnReturn.js"></script>
+      <script>
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted || (performance.getEntriesByType("navigation")[0]?.type === 'back_forward')) {
+            location.reload();
+        }
+    });
+</script>
    </body>
 
 <!-- Mirrored from html.storebuild.shop/shofy-prv/shofy/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Nov 2024 15:13:15 GMT -->

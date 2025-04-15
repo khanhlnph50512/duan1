@@ -22,6 +22,13 @@ $auth = new AuthController();
 $profile = new ProfileController();
 $cart  = new CartController();
 $order = new OrderController();
+if (isset($_GET['act']) && $_GET['act'] === 'order-detail' && isset($_GET['ajax']) && isset($_GET['order_detail_Id'])) {
+    require_once '../models/Order.php'; // Vẫn giữ tên class là Order
+    $order = new Order(); // Khởi tạo đối tượng của class Order
+    $orderDetails = $order->editStatus(); // Sử dụng phương thức editStatus để lấy trạng thái đơn hàng
+    echo json_encode(['status' => $orderDetails['status']]); // Trả về trạng thái đơn hàng
+    exit;
+}
 switch ($action) {
     case 'admin':
         include '../views/admin/index.php';
@@ -87,6 +94,9 @@ switch ($action) {
     case 'order-delete':
         $orderAdmin->delete();
         break;
+    case 'orderAdmin-detail':
+        $orderAdmin->show();
+        break;
 
     //=======================================================================
 
@@ -141,5 +151,8 @@ switch ($action) {
         break;
     case 'order-detail':
         $order->orderDetail();
+        break;
+    case 'category-product':
+        $home->categoryProduct();
         break;
 }

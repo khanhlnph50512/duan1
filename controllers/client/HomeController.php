@@ -30,4 +30,25 @@ class HomeController {
 
         include '../views/client/product/productDetail.php';
     }
+    public function categoryProduct()
+{
+    $categoryId = $_GET['id'] ?? null;
+
+    if (!$categoryId) {
+        // Nếu không có id, có thể redirect về trang chủ hoặc báo lỗi
+        header("Location: index.php");
+        exit;
+    }
+
+    // Lấy thông tin danh mục
+    $categoryDetail = $this->category->detail();
+
+    // Lấy sản phẩm theo danh mục
+    $products = $this->product->getProductsByCategory($categoryId);
+
+    // Lấy danh sách danh mục nếu bạn muốn hiển thị sidebar
+    $category = $this->category->listCategory();
+
+    include '../views/client/index.php';
+}
 }

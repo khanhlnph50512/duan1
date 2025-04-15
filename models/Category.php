@@ -30,4 +30,5 @@ class Category extends connect
         $stmt->execute([$_GET['id']]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
 }

@@ -11,6 +11,9 @@
 
      <!-- Dashboard Js -->
      <script src="admin/assets_admin/js/pages/dashboard.js"></script>
+     <script src="admin/assets_admin/js/reloadOnReturn.js"></script>
+</body>
+
    <script>
     function ChangeToSlug()
 {
@@ -48,6 +51,13 @@
 }
 
    </script>
+<script>
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted || (performance.getEntriesByType("navigation")[0]?.type === 'back_forward')) {
+            location.reload();
+        }
+    });
+</script>
 </body>
 
 

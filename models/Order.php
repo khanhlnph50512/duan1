@@ -67,11 +67,32 @@ class Order extends connect
 
 public function getOrderDetailById($order_detail_id)
 {
-    $sql = "SELECT * FROM order_details WHERE order_detail_id = ?";
+    // Lấy chi tiết đơn hàng
+    $sql = "SELECT * FROM order_details WHERE order_detail_Id = ?";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute([$order_detail_id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $orderDetail = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($orderDetail) {
+        // Lấy thông tin phương thức vận chuyển
+        $shippingSql = "SELECT * FROM ships WHERE ship_Id = :shipping_id";
+        $shippingStmt = $this->connect()->prepare($shippingSql);
+        $shippingStmt->bindParam(':shipping_id', $orderDetail['shipping_id']);
+        $shippingStmt->execute();
+        $shipping = $shippingStmt->fetch(PDO::FETCH_ASSOC);
+
+        // Kiểm tra xem thông tin phí vận chuyển có tồn tại không
+        if ($shipping) {
+            $orderDetail['shipping_price'] = $shipping['shipping_prices'];
+        } else {
+            // Nếu không có, đặt phí vận chuyển bằng 0
+            $orderDetail['shipping_price'] = 0;
+        }
+    }
+
+    return $orderDetail;
 }
+
 public function getOrderItems($order_detail_id)
 {
     $sql = "SELECT 

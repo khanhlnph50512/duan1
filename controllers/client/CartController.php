@@ -27,6 +27,12 @@ class CartController extends Cart {
             exit();
           
            }
+           if ($_POST['quantity'] <= 0) {
+            $_SESSION['error'] = 'Số lượng phải lớn hơn 0';
+            header('Location:'.$_SERVER['HTTP_REFERER']);
+            exit();
+        }
+        
            $productQuantity = $this->getQuantity($_POST['product_id'], $_POST['variant_id']);
 
            if(!$productQuantity) {
@@ -42,7 +48,7 @@ class CartController extends Cart {
            }
    
            // Nếu số lượng vượt quá kho, báo lỗi
-           if ($newQuantity > $productQuantity) {
+           if ($newQuantity > $productQuantity  ) {
                $_SESSION['error'] = 'Số lượng đặt hàng vượt quá số lượng tồn kho!';
                header('Location:'.$_SERVER['HTTP_REFERER']);
                exit();
@@ -65,6 +71,31 @@ class CartController extends Cart {
              exit();
            }
         }else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buy_now'])){
+            $productQuantity = $this->getQuantity($_POST['product_id'], $_POST['variant_id']);
+            if ($_POST['quantity'] <= 0) {
+                $_SESSION['error'] = 'Số lượng phải lớn hơn 0';
+                header('Location:'.$_SERVER['HTTP_REFERER']);
+                exit();
+            }
+            
+           if(!$productQuantity) {
+            $_SESSION['error'] = 'Sản phẩm không tồn tại hoặc đã hết hàng';
+            header('Location:'.$_SERVER['HTTP_REFERER']);
+            exit();
+        }
+        $checkCart = $this->checkCart();
+        $newQuantity = $_POST['quantity'];
+
+        if($checkCart) {
+            $newQuantity += $checkCart['quantity']; // Cộng dồn số lượng nếu đã có trong giỏ
+        }
+
+        // Nếu số lượng vượt quá kho, báo lỗi
+        if ($newQuantity > $productQuantity ) {
+            $_SESSION['error'] = 'Số lượng đặt hàng vượt quá số lượng tồn kho!';
+            header('Location:'.$_SERVER['HTTP_REFERER']);
+            exit();
+        }
             if(empty($_POST['variant_id'] )){
                 $_SESSION['error'] = 'Vui lòng chọn màu săc và kích thước sản phẩm';
                 header('Location:'.$_SERVER['HTTP_REFERER']);

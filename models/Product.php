@@ -264,4 +264,11 @@ class Product extends connect
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getProductsByCategory($category_id)
+    {
+        $sql = "SELECT * FROM product WHERE category_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$category_id]);
+        return $stmt->fetchAll();
+    }
 }

@@ -33,7 +33,6 @@
 
 <body>
 
-
    <?php
    if (isset($_SESSION['error'])) {
       echo "<script type='text/javascript'>
@@ -90,15 +89,7 @@
                                     <input type="text" name="keyword" placeholder="Nhập tên sản phẩm..." value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
 
                                  </div>
-                                 <div class="tp-header-search-category">
-
-                                    <select>
-                                       <?php foreach ($category as $cate) : ?>
-                                          <option value="<?= $cate['category_id'] ?>" <?= isset($_GET['category_id']) && $_GET['category_id'] == $cate['category_id'] ? 'selected' : '' ?>><?= $cate['name'] ?></option>
-                                       <?php endforeach; ?>
-                                    </select>
-
-                                 </div>
+                                
                                  <div class="tp-header-search-btn">
                                     <button type="submit">
                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
