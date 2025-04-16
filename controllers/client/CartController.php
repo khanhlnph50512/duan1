@@ -18,9 +18,12 @@ class CartController extends Cart {
     public function addToCartOrByNow(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])){
 
-            // echo '<pre>';
-            // print_r($_POST);
-            // echo '<pre>';
+            if(empty($_SESSION['user']['user_id'])){
+                $_SESSION['error'] = 'Vui lòng đăng nhập để mua sản phẩm';
+                header('Location:?act=index');
+                exit();
+              
+               }
            if(empty($_POST['variant_id'] )){
             $_SESSION['error'] = 'Vui lòng chọn màu săc và kích thước sản phẩm';
             header('Location:'.$_SERVER['HTTP_REFERER']);
@@ -71,6 +74,12 @@ class CartController extends Cart {
              exit();
            }
         }else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buy_now'])){
+            if(empty($_SESSION['user']['user_id'])){
+                $_SESSION['error'] = 'Vui lòng đăng nhập để mua sản phẩm';
+                header('Location:?act=index');
+                exit();
+              
+               }
             $productQuantity = $this->getQuantity($_POST['product_id'], $_POST['variant_id']);
             if ($_POST['quantity'] <= 0) {
                 $_SESSION['error'] = 'Số lượng phải lớn hơn 0';

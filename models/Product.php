@@ -271,4 +271,23 @@ class Product extends connect
         $stmt->execute([$category_id]);
         return $stmt->fetchAll();
     }
+    /////////////////////////////////
+
+    // Truy vấn tổng số sản phẩm
+public function getTotalProducts() {
+    $sql = 'SELECT COUNT(*) AS total_products FROM product';
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Truy vấn tổng số sản phẩm đã bán
+public function getSoldProducts() {
+    $sql = 'SELECT SUM(quantity) AS total_sold FROM orders';
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 }

@@ -71,7 +71,7 @@
         <div class="alert alert-info">Bạn chưa có đơn hàng nào.</div>
     <?php endif; ?>
 </div>
-<script>
+<!-- <script>
     // Function để kiểm tra trạng thái đơn hàng
     function checkOrderStatus(orderDetailId) {
         $.ajax({
@@ -98,7 +98,7 @@
             checkOrderStatus(orderDetailId); // Gọi hàm kiểm tra trạng thái
         }, 5000); // Cứ mỗi 5 giây, kiểm tra trạng thái
     });
-</script>
+</script> -->
 
 
 <?php include '../views/client/layout/footer.php' ?>

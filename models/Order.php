@@ -118,7 +118,28 @@ public function getOrderItems($order_detail_id)
 
 
 
+////////////////////////////////////////////////
+public function getTotalOrders() {
+    $sql = 'SELECT COUNT(*) AS total_orders FROM order_details';
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
+// Truy vấn tổng doanh thu
+public function getTotalRevenue() {
+    $sql = 'SELECT SUM(amount) AS total_revenue FROM order_details WHERE status = "Completed"';
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
+// Truy vấn tổng đơn hàng theo trạng thái
+public function getOrdersByStatus($status) {
+    $sql = 'SELECT COUNT(*) AS total FROM order_details WHERE status = ?';
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([$status]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 }

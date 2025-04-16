@@ -1,4 +1,9 @@
 <?php include '../views/client/layout/header.php' ?>
+<?php
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']); 
+?>
+
 <main>
 
    <!-- breadcrumb area start -->
@@ -9,7 +14,7 @@
                <div class="breadcrumb__content p-relative z-index-1">
                   <h3 class="breadcrumb__title">Checkout</h3>
                   <div class="breadcrumb__list">
-                     <span><a href="http://localhost/DU_AN_1%20NHOM3/public/">Trang chủ</a></span>
+                     <span><a href="?act=index">Trang chủ</a></span>
                      <span>Thanh toán</span>
                   </div>
                </div>
@@ -18,30 +23,30 @@
       </div>
    </section>
    <!-- breadcrumb area end -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const shippingRadios = document.querySelectorAll('input[name="shipping_id"]');
-        const totalPriceSpan = document.getElementById("totalPrice");
-        const amountInput = document.getElementById("amountInput");
+   <script>
+      document.addEventListener("DOMContentLoaded", function() {
+         const shippingRadios = document.querySelectorAll('input[name="shipping_id"]');
+         const totalPriceSpan = document.getElementById("totalPrice");
+         const amountInput = document.getElementById("amountInput");
 
-        // Lấy tổng tiền ban đầu từ PHP (chuyển về JS)
-        let baseTotal = <?= isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon']) * 1000 : $_SESSION['total'] * 1000 ?>;
+         // Lấy tổng tiền ban đầu từ PHP (chuyển về JS)
+         let baseTotal = <?= isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon']) * 1000 : $_SESSION['total'] * 1000 ?>;
 
-        shippingRadios.forEach(function (radio) {
-            radio.addEventListener('change', function () {
-                const label = document.querySelector(`label[for="${this.id}"]`);
-                const priceText = label.querySelector('span').innerText.replace(/[^0-9]/g, '');
-                const shippingPrice = parseInt(priceText);
-                const finalTotal = baseTotal + shippingPrice;
+         shippingRadios.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+               const label = document.querySelector(`label[for="${this.id}"]`);
+               const priceText = label.querySelector('span').innerText.replace(/[^0-9]/g, '');
+               const shippingPrice = parseInt(priceText);
+               const finalTotal = baseTotal + shippingPrice;
 
-                // Cập nhật giao diện
-                totalPriceSpan.innerText = finalTotal.toLocaleString('vi-VN') + 'vnd';
-                // Cập nhật input hidden
-                amountInput.value = finalTotal;
+               // Cập nhật giao diện
+               totalPriceSpan.innerText = finalTotal.toLocaleString('vi-VN') + 'vnd';
+               // Cập nhật input hidden
+               amountInput.value = finalTotal;
             });
-        });
-    });
-</script>
+         });
+      });
+   </script>
 
    <!-- checkout area start -->
    <form action="?act=order" method="post">
@@ -61,6 +66,9 @@
                                  <div class="tp-checkout-input">
                                     <label>Họ và tên <span>*</span></label>
                                     <input type="text" name="name" value="<?= $user['name'] ?>" placeholder="First Name">
+                                    <?php if (!empty($errors['name'])): ?>
+                                       <small style="color:red;"><?= $errors['name'] ?></small>
+                                    <?php endif; ?>
                                  </div>
                               </div>
 
@@ -70,6 +78,9 @@
                                  <div class="tp-checkout-input">
                                     <label>Địa chỉ</label>
                                     <input type="text" name="address" value="<?= $user['address'] ?>" placeholder="House number and street name">
+                                    <?php if (!empty($errors['address'])): ?>
+                                       <small style="color:red;"><?= $errors['address'] ?></small>
+                                    <?php endif; ?>
                                  </div>
 
 
@@ -81,12 +92,18 @@
                                  <div class="tp-checkout-input">
                                     <label>Số điện thoại <span>*</span></label>
                                     <input type="text" name="phone" value="<?= $user['phone'] ?>" placeholder="">
+                                    <?php if (!empty($errors['phone'])): ?>
+                                       <small style="color:red;"><?= $errors['phone'] ?></small>
+                                    <?php endif; ?>
                                  </div>
                               </div>
                               <div class="col-md-12">
                                  <div class="tp-checkout-input">
                                     <label>Email <span>*</span></label>
                                     <input type="email" name="email" value="<?= $user['email'] ?>" placeholder="">
+                                    <?php if (!empty($errors['email'])): ?>
+                                       <small style="color:red;"><?= $errors['email'] ?></small>
+                                    <?php endif; ?>
                                  </div>
                               </div>
 
@@ -94,6 +111,9 @@
                                  <div class="tp-checkout-input">
                                     <label>Ghi chú</label>
                                     <textarea name="note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    <?php if (!empty($errors['note'])): ?>
+                                       <small style="color:red;"><?= $errors['note'] ?></small>
+                                    <?php endif; ?>
                                  </div>
                               </div>
                            </div>
@@ -151,18 +171,20 @@
                                        <label for="flat_rate-<?= $key + 1 ?>"><?= $ship['shipping_name'] ?> <span><?= number_format($ship['shipping_prices']) ?>vnd</span></label>
                                     </span>
                                  <?php endforeach; ?>
-
+                                 <?php if (!empty($errors['shipping_id'])): ?>
+                                    <small style="color:red;"><?= $errors['shipping_id'] ?></small>
+                                 <?php endif; ?>
                               </div>
                            </li>
 
                            <!-- total -->
-                              <li class="tp-order-info-list-total">
-                                 <span>Total</span>
-                                 <input type="hidden" id="amountInput" name="amount" value="<?= isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon'])  : $_SESSION['total']  ?>">
-                                 <span id="totalPrice">
-                                    <?= number_format(isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon']) * 1000 : $_SESSION['total'] * 1000) ?>vnd
-                                 </span>
-                              </li>
+                           <li class="tp-order-info-list-total">
+                              <span>Total</span>
+                              <input type="hidden" id="amountInput" name="amount" value="<?= isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon'])  : $_SESSION['total']  ?>">
+                              <span id="totalPrice">
+                                 <?= number_format(isset($_SESSION['coupon']) ? ($_SESSION['total'] - $_SESSION['totalCoupon']) * 1000 : $_SESSION['total'] * 1000) ?>vnd
+                              </span>
+                           </li>
                         </ul>
                      </div>
                      <div class="tp-checkout-payment">
@@ -175,6 +197,9 @@
                               <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
                            </div>
                         </div>
+                        <?php if (!empty($errors['payment_method'])): ?>
+                           <small style="color:red;"><?= $errors['payment_method'] ?></small>
+                        <?php endif; ?>
 
                      </div>
                      <div class="tp-checkout-agree">

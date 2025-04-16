@@ -85,7 +85,6 @@
                                              <td> <?=$product['category_name']?></td>
                                              <td>
                                                   <div class="d-flex gap-2">
-                                                       <a href="?act=product-detail&id=<?=$product['product_id']?>" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
                                                        <a href="?act=product-edit&id=<?=$product['product_id']?>" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                        <a href="?act=product-delete&id=<?=$product['product_id']?>" class="btn btn-soft-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                   </div>

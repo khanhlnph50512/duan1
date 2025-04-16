@@ -4,6 +4,8 @@ require_once '../controllers/admin/CategoryAdminController.php';
 require_once '../controllers/admin/ProductAdminController.php';
 require_once '../controllers/admin/CouponAdminController.php';
 require_once '../controllers/admin/OrderAdminController.php';
+require_once '../controllers/admin/DashboardAdminController.php';
+
 /////////////////////////
 require_once '../controllers/client/HomeController.php';
 require_once '../controllers/client/AuthController.php';
@@ -16,22 +18,24 @@ $categoryAdmin = new CategoryAdminController();
 $productAdmin = new ProductAdminController();
 $couponAdmin = new CouponAdminController();
 $orderAdmin = new OrderAdminController();
+$dashboard = new DashboardAdminController();
+
 ///////////////////////////
 $home = new HomeController();
 $auth = new AuthController();
 $profile = new ProfileController();
 $cart  = new CartController();
 $order = new OrderController();
-if (isset($_GET['act']) && $_GET['act'] === 'order-detail' && isset($_GET['ajax']) && isset($_GET['order_detail_Id'])) {
-    require_once '../models/Order.php'; // Vẫn giữ tên class là Order
-    $order = new Order(); // Khởi tạo đối tượng của class Order
-    $orderDetails = $order->editStatus(); // Sử dụng phương thức editStatus để lấy trạng thái đơn hàng
-    echo json_encode(['status' => $orderDetails['status']]); // Trả về trạng thái đơn hàng
-    exit;
-}
+// if (isset($_GET['act']) && $_GET['act'] === 'order-detail' && isset($_GET['ajax']) && isset($_GET['order_detail_Id'])) {
+//     require_once '../models/Order.php'; // Vẫn giữ tên class là Order
+//     $order = new Order(); // Khởi tạo đối tượng của class Order
+//     $orderDetails = $order->editStatus(); // Sử dụng phương thức editStatus để lấy trạng thái đơn hàng
+//     echo json_encode(['status' => $orderDetails['status']]); // Trả về trạng thái đơn hàng
+//     exit;
+// }
 switch ($action) {
     case 'admin':
-        include '../views/admin/index.php';
+        $dashboard->index();
         break;
     case 'product';
         $productAdmin->index();
@@ -97,7 +101,6 @@ switch ($action) {
     case 'orderAdmin-detail':
         $orderAdmin->show();
         break;
-
     //=======================================================================
 
     case 'index':

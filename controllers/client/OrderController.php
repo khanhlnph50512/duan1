@@ -25,6 +25,33 @@ class OrderController {
     }
     public function checkout(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['checkout'])){
+            $errors = [];
+            if (empty($_POST['name'])) {
+                $errors['name'] = 'Vui lòng nhập tên ';
+            }
+            if (empty($_POST['email'])) {
+                $errors['email'] = 'Vui lòng nhập email';
+            }
+            if (empty($_POST['phone'])) {
+                $errors['phone'] = 'Vui lòng nhập số điện thoại ';
+            }
+            if (empty($_POST['address'])) {
+                $errors['address'] = 'Vui lòng nhập địa chỉ';
+            }
+            if (empty($_POST['note'])) {
+                $errors['note'] = 'Vui lòng nhập ghi chú';
+            }
+            if (empty($_POST['shipping_id'])) {
+                $errors['shipping_id'] = 'Vui lòng chọn phương thức vận chuyển';
+            }
+            if (empty($_POST['payment_method'])) {
+                $errors['payment_method'] = 'Vui lòng chọn phương thức thanh toán';
+            }
+            $_SESSION['errors'] = $errors;
+            if ($errors) {
+                header('Location:?act=checkout');
+                exit();
+            }
             $carts = $this->cart->getAllCart();
             $coupon_id = !empty($_POST['coupon_id']) ? $_POST['coupon_id'] : null;
             $orderDetail = $this->order->addOrderDetail(
@@ -47,7 +74,7 @@ class OrderController {
                 unset($_SESSION['total']);
                 unset($_SESSION['coupon']);
                 unset($_SESSION['totalCoupon']);
-                header("Location:?act=index");
+                header("Location:?act=my-orders");
                 $_SESSION['success'] = 'dat hang thanh cong';
                 exit();
             }else{
