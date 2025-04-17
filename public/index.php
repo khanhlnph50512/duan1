@@ -5,6 +5,8 @@ require_once '../controllers/admin/ProductAdminController.php';
 require_once '../controllers/admin/CouponAdminController.php';
 require_once '../controllers/admin/OrderAdminController.php';
 require_once '../controllers/admin/DashboardAdminController.php';
+require_once '../controllers/admin/UserAdminController.php';
+
 
 /////////////////////////
 require_once '../controllers/client/HomeController.php';
@@ -19,6 +21,7 @@ $productAdmin = new ProductAdminController();
 $couponAdmin = new CouponAdminController();
 $orderAdmin = new OrderAdminController();
 $dashboard = new DashboardAdminController();
+$userAdmin = new UserAdminController();
 
 ///////////////////////////
 $home = new HomeController();
@@ -101,6 +104,13 @@ switch ($action) {
     case 'orderAdmin-detail':
         $orderAdmin->show();
         break;
+    case "role-list":
+        $userAdmin->index();
+        break;
+    case 'edit-role':
+        $userAdmin->editRole(); 
+        break;
+    
     //=======================================================================
 
     case 'index':

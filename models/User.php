@@ -8,13 +8,17 @@ class User extends connect{
       $stmt = $this->connect()->prepare($sql);
       return $stmt->execute([$name,$email,$hash_password]);
     }
-    public function login($email,$password) {
-        $sql = 'select * from users where email =?';
+    public function login($email, $password) {
+        $sql = 'SELECT users.*, role.role_type 
+                FROM users 
+                JOIN role ON users.role_id = role.role_id 
+                WHERE users.email = ?';
+    
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$email]);
         $user = $stmt->fetch();
-
-        if($user && password_verify($password,$user['password'])){
+    
+        if ($user && password_verify($password, $user['password'])) {
             return $user;
         }
         return false;
@@ -36,10 +40,9 @@ class User extends connect{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function deleteUser() {
-        $sql = 'delete from users where user_id';
+    public function updateRole($user_id, $role_id) {
+        $sql = "UPDATE users SET role_id = ? WHERE user_id = ?";
         $stmt = $this->connect()->prepare($sql);
-
-        return $stmt->execute([$_GET['user_id']]);
+        return $stmt->execute([$role_id, $user_id]);
     }
 }

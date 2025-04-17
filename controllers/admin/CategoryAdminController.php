@@ -1,10 +1,13 @@
 <?php
+require_once '../helpers/helpers.php';
 
 require_once '../models/category.php';
 class CategoryAdminController extends Category
 {
    public function index()
    {
+    checkAdminAccess(); // Kiểm tra quyền admin trước khi tiếp tục
+
     $listCategories = $this->listCategory();
     
     include '../views/admin/category/list.php';

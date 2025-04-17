@@ -37,6 +37,7 @@ class AuthController extends User
         include '../views/client/auth/register.php';
     }
     public function signin(){
+        
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login']))
 {
     $errors = [];
@@ -60,7 +61,11 @@ class AuthController extends User
     if($login){
         $_SESSION['user'] = $login; //luu thong tin nguoi dung dang nhap vao ss
         $_SESSION['success'] = 'Đăng nhập thành công';
-        header('Location:?act=index');
+        if ($login['role_type'] === 'admin') {
+            header('Location: ?act=admin');
+        } else {
+            header('Location: ?act=index'); // Trang client
+        }
         exit();
     }else{
         $_SESSION['errors'] = 'Đăng nhập thất bại.Vui lòng xem lại';

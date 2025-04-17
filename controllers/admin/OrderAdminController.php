@@ -1,8 +1,12 @@
 <?php
+require_once '../helpers/helpers.php';
+
 require_once '../models/Order.php';
 
 class OrderAdminController extends Order{
    public function index(){
+    checkAdminAccess(); // Kiểm tra quyền admin trước khi tiếp tục
+
     $getOrderById = $this->getAllOrders();
 
     include '../views/admin/order/list.php';

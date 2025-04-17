@@ -1,10 +1,14 @@
 <?php
+require_once '../helpers/helpers.php';
+
 require_once '../models/Coupon.php';
 
 class CouponAdminController  extends Coupon
 {
     public function index()
     {
+        checkAdminAccess(); // Kiểm tra quyền admin trước khi tiếp tục
+
         $listCoupons = $this->listCoupon();
         include "../views/admin/coupon/list.php";
     }

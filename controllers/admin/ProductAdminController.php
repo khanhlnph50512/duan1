@@ -1,9 +1,13 @@
 <?php
+require_once '../helpers/helpers.php';
+
 require_once '../models/Product.php';
 class ProductAdminController extends Product
 {
     public function index()
     {
+        checkAdminAccess(); // Kiểm tra quyền admin trước khi tiếp tục
+
         $listProduct = $this->listProduct();
         include '../views/admin/product/list.php';
     }
