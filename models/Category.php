@@ -30,5 +30,25 @@ class Category extends connect
         $stmt->execute([$_GET['id']]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
+    public function checkIfCategoryHasProducts($category_id)
+    {
+        $sql = 'SELECT COUNT(*) FROM product WHERE category_id = ?';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$category_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['COUNT(*)'] > 0; // Nếu có sản phẩm, trả về true
+    }
+
+    // Xóa danh mục
+    public function deleteCategory($category_id)
+    {
+        // Kiểm tra nếu danh mục có sản phẩm nào không
+        if ($this->checkIfCategoryHasProducts($category_id)) {
+            return false; // Không xóa được vì còn sản phẩm
+        }
+
+        $sql = 'DELETE FROM categores WHERE category_id = ?';
+        $stmt = $this->connect()->prepare($sql);
+        return $stmt->execute([$category_id]); // Xóa danh mục nếu không có sản phẩm
+    }
 }

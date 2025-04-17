@@ -117,6 +117,7 @@
                                                             <td>
                                                                  <div class="d-flex gap-2">
                                                                       <a href="index.php?act=category-edit&id=<?=$cate['category_id']?>" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <a href="?act=category-delete&id=<?=$cate['category_id']?>" class="btn btn-soft-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?');"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
 
                                                                  </div>
                                                             </td>

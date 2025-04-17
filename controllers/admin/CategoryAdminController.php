@@ -104,5 +104,25 @@ class CategoryAdminController extends Category
     include '../views/admin/category/edit.php';
 
    }
-  
+   public function delete()
+    {
+        $category_id = $_GET['id'];
+
+        // Kiểm tra xem danh mục có còn sản phẩm không
+        if ($this->checkIfCategoryHasProducts($category_id)) {
+            $_SESSION['error'] = 'Không thể xóa danh mục vì còn sản phẩm trong danh mục!';
+            header('Location:index.php?act=category');
+            exit();
+        }
+
+        // Tiến hành xóa danh mục nếu không còn sản phẩm
+        $deleteCategory = $this->deleteCategory($category_id);
+        if ($deleteCategory) {
+            $_SESSION['success'] = 'Danh mục đã được xóa thành công';
+        } else {
+            $_SESSION['error'] = 'Xóa danh mục thất bại, vui lòng thử lại';
+        }
+        header('Location:index.php?act=category');
+        exit();
+    }
 }

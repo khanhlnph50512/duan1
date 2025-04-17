@@ -74,6 +74,9 @@ switch ($action) {
     case 'category-edit':
         $categoryAdmin->updateCategory();
         break;
+        case 'category-delete':
+            $categoryAdmin->delete();
+            break;
     case 'coupon-list':
         $couponAdmin->index();
         break;
