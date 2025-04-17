@@ -47,7 +47,7 @@
                      <div class="tab-pane fade show <?=$key===0 ? 'active' : ''?>" id="nav-<?=$key+1?>" role="tabpanel" aria-labelledby="nav-<?=$key+1?>-tab" tabindex="0">
                     
                         <div class="tp-product-details-nav-main-thumb">
-                           <img src="./images/product_gallery/<?=$gallery?>" alt="">
+                           <img src="./images/product_gallery/<?=$gallery?>" alt="" width="500px">
                         </div>
                         
                      </div>

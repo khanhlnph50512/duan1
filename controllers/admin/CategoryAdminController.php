@@ -14,6 +14,8 @@ class CategoryAdminController extends Category
    }
    public function addCategory()
    {
+    checkAdminAccess();
+
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['createCategory']))
     {
         $errors = [];
@@ -53,6 +55,8 @@ class CategoryAdminController extends Category
    }
    public function editCategory()
    {
+    checkAdminAccess();
+
     $getCategory = $this->detail();
     if($getCategory) {
         return $getCategory;

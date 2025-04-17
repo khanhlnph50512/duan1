@@ -51,4 +51,5 @@ class HomeController {
 
     include '../views/client/index.php';
 }
+
 }

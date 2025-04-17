@@ -12,6 +12,8 @@ class OrderAdminController extends Order{
     include '../views/admin/order/list.php';
    } 
    public function edit(){
+    checkAdminAccess();
+
     $orders = $this->editStatus();
 
     include '../views/admin/order/edit.php';
@@ -51,6 +53,8 @@ class OrderAdminController extends Order{
        }
  }
  public function show() {
+    checkAdminAccess();
+
     // Kiểm tra nếu có id đơn hàng được gửi đến
     $order_detail_id = $_GET['order_detail_Id'] ?? null;
 

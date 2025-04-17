@@ -13,13 +13,13 @@
                <div class="col">
                   <div class="tp-product-category-item text-center mb-40">
                      <div class="tp-product-category-thumb fix">
-                        <a>
+                        <a href="?act=category-product&id=<?= $cate['category_id'] ?>">
                            <img src="./images/category/<?= $cate['image'] ?>" width="100px" alt="product-category">
                         </a>
                      </div>
                      <div class="tp-product-category-content">
                         <h3 class="tp-product-category-title">
-                           <a href="">
+                           <a >
                               <?= $cate['name'] ?>
                            </a>
                         </h3>

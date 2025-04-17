@@ -11,7 +11,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- Place favicon.ico in the root directory -->
-   <link rel="shortcut icon" type="image/x-icon" href="public\client\assets\img\logo\1.jpg">
+   <link rel="shortcut icon" type="image/x-icon" href="public\client\assets\img\logo\logo-bee.png">
 
    <!-- CSS here -->
    <link rel="stylesheet" href="client/assets/css/bootstrap.css">
@@ -73,7 +73,7 @@
                   <div class="col-xl-2 col-lg-2 col-md-4 col-6">
                      <div class="logo">
                         <a href="index.php">
-                           <img src="client/assets/img/logo/1.jpg" alt="logo" height="80px">
+                           <img src="client/assets/img/logo/logo-bee.png" alt="logo" height="80px">
                         </a>
                      </div>
                   </div>

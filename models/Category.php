@@ -51,4 +51,5 @@ class Category extends connect
         $stmt = $this->connect()->prepare($sql);
         return $stmt->execute([$category_id]); // Xóa danh mục nếu không có sản phẩm
     }
+    
 }

@@ -13,6 +13,8 @@ class ProductAdminController extends Product
     }
     public function create()
     {
+        checkAdminAccess();
+
         $listColors = $this->getAllColor();
         $listSizes = $this->getAllSize();
         $listCategories = $this->getAllCategory();
@@ -20,6 +22,8 @@ class ProductAdminController extends Product
     }
     public function store()
     {
+        checkAdminAccess();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_products'])) {
             $errors = [];
             if (empty($_POST['product_name'])) {
@@ -118,6 +122,8 @@ class ProductAdminController extends Product
     }
     public function edit()
     {
+        checkAdminAccess();
+
         $product = $this->getProductById($_GET['id']);
         $variants = $this->getProductVariantById($_GET['id']);
         $gallery = $this->getProductGalleryById();
@@ -128,6 +134,7 @@ class ProductAdminController extends Product
     }
     public function update()
     {
+        checkAdminAccess();
 
         $errors = [];
         if (empty($_POST['product_name'])) {
